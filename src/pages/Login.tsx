@@ -44,18 +44,18 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Logo and Title */}
         <div className="text-center mb-8 animate-fade-in">
-          <div className="bg-white/10 p-4 rounded-2xl w-20 h-20 mx-auto mb-4 flex items-center justify-center backdrop-blur-sm">
+          <div className="bg-white/20 p-4 rounded-2xl w-20 h-20 mx-auto mb-4 flex items-center justify-center backdrop-blur-sm border border-white/30">
             <Shield className="h-10 w-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">City Hall</h1>
-          <p className="text-white/80 text-lg">Attendance Management System</p>
+          <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">City Hall</h1>
+          <p className="text-white/90 text-lg drop-shadow-md">Attendance Management System</p>
         </div>
 
         {/* Login Card */}
         <Card className="glass-card border-white/20 backdrop-blur-md animate-scale-in">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-2xl font-bold text-white">Admin Login</CardTitle>
-            <CardDescription className="text-white/70">
+            <CardTitle className="text-2xl font-bold text-foreground drop-shadow-md">Admin Login</CardTitle>
+            <CardDescription className="text-muted-foreground drop-shadow-sm">
               Enter your credentials to access the system
             </CardDescription>
           </CardHeader>
@@ -64,18 +64,17 @@ export default function Login() {
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white font-medium">
+                <Label htmlFor="email" className="text-foreground font-medium drop-shadow-sm">
                   Email Address
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/60" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="admin@cityhall.gov"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 glass-input text-white placeholder:text-white/50 border-white/30"
+                    className="glass-input text-foreground placeholder:text-muted-foreground border-border focus:border-primary focus:bg-white/20 transition-all duration-200"
                     required
                   />
                 </div>
@@ -83,25 +82,24 @@ export default function Login() {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white font-medium">
+                <Label htmlFor="password" className="text-foreground font-medium drop-shadow-sm">
                   Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/60" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 glass-input text-white placeholder:text-white/50 border-white/30"
+                    className="pr-10 glass-input text-foreground placeholder:text-muted-foreground border-border focus:border-primary focus:bg-white/20 transition-all duration-200"
                     required
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 text-white/60 hover:text-white"
+                    className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 text-foreground hover:text-foreground hover:bg-accent"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -120,16 +118,16 @@ export default function Login() {
                     id="remember"
                     checked={rememberMe}
                     onCheckedChange={(checked) => setRememberMe(!!checked)}
-                    className="border-white/30 data-[state=checked]:bg-white data-[state=checked]:text-primary"
+                    className="border-border data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                   />
-                  <Label htmlFor="remember" className="text-white/80 text-sm cursor-pointer">
+                  <Label htmlFor="remember" className="text-muted-foreground text-sm cursor-pointer drop-shadow-sm">
                     Remember me
                   </Label>
                 </div>
                 <Button
                   type="button"
                   variant="link"
-                  className="text-white/80 hover:text-white p-0 h-auto text-sm"
+                  className="text-muted-foreground hover:text-foreground p-0 h-auto text-sm drop-shadow-sm"
                 >
                   Forgot password?
                 </Button>
@@ -139,11 +137,11 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full glass-button text-primary font-semibold hover:bg-white/20 transition-smooth h-12"
+                className="w-full bg-primary text-primary-foreground font-semibold hover:bg-transparent hover:text-primary hover:border-primary hover:border-2 transition-smooth h-12"
               >
                 {isLoading ? (
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
                     Signing in...
                   </div>
                 ) : (
@@ -154,10 +152,10 @@ export default function Login() {
 
             {/* Footer */}
             <div className="mt-8 text-center">
-              <p className="text-white/60 text-sm">
+              <p className="text-muted-foreground text-sm drop-shadow-sm">
                 Need help? Contact IT Support
               </p>
-              <p className="text-white/40 text-xs mt-2">
+              <p className="text-muted-foreground/60 text-xs mt-2 drop-shadow-sm">
                 © 2024 City Hall. All rights reserved.
               </p>
             </div>
@@ -167,8 +165,8 @@ export default function Login() {
         {/* Demo Credentials */}
         <Card className="mt-4 glass-card border-white/20 backdrop-blur-md">
           <CardContent className="pt-4">
-            <p className="text-white/70 text-sm text-center mb-2 font-medium">Demo Credentials:</p>
-            <div className="text-white/60 text-xs space-y-1 text-center">
+            <p className="text-foreground text-sm text-center mb-2 font-medium drop-shadow-sm">Demo Credentials:</p>
+            <div className="text-muted-foreground text-xs space-y-1 text-center drop-shadow-sm">
               <p>Email: admin@cityhall.gov</p>
               <p>Password: admin123</p>
             </div>

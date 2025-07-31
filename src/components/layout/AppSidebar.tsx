@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   FileText,
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 
 const navigationItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -40,6 +41,8 @@ const navigationItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
@@ -51,15 +54,26 @@ export function AppSidebar() {
 
   const getNavClasses = (path: string) => {
     const baseClasses = "w-full justify-start gap-3 h-11 transition-smooth rounded-lg relative overflow-hidden";
-    const activeClasses = "glass-nav text-white font-medium shadow-medium";
-    const inactiveClasses = "text-white/80 hover:text-white hover:bg-white/20";
+    const activeClasses = "bg-white/20 text-white font-medium shadow-medium";
+    const inactiveClasses = "text-white hover:text-white hover:bg-white/10";
     
     return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
   };
 
+  const handleLogout = () => {
+    // Show logout toast
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+    
+    // Redirect to login page
+    navigate("/login");
+  };
+
   return (
     <Sidebar
-      className={`transition-smooth ${collapsed ? "w-16" : "w-64"}`}
+      className="sidebar-custom transition-all duration-300 ease-in-out"
       style={{ backgroundColor: "#3D99C0" }}
       collapsible="icon"
     >
@@ -73,7 +87,7 @@ export function AppSidebar() {
               <h2 className="text-lg font-bold text-white">
                 City Hall
               </h2>
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-white/80">
                 Attendance System
               </p>
             </div>
@@ -83,8 +97,8 @@ export function AppSidebar() {
 
       <SidebarContent className="p-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-white/60 text-xs font-semibold mb-3">
-            {!collapsed ? "NAVIGATION" : "NAV"}
+          <SidebarGroupLabel className="text-white/80 text-xs font-semibold mb-3">
+            {!collapsed ? "NAVIGATION" : ""}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
@@ -97,10 +111,10 @@ export function AppSidebar() {
                       end={item.url === "/"}
                     >
                       <item.icon className={`h-5 w-5 transition-smooth ${
-                        isActive(item.url) ? "text-white" : "text-white/80"
+                        isActive(item.url) ? "text-white" : "text-white/90"
                       }`} />
                       {!collapsed && (
-                        <span className="animate-fade-in font-medium">
+                        <span className="animate-fade-in font-medium text-white">
                           {item.title}
                         </span>
                       )}
@@ -126,7 +140,7 @@ export function AppSidebar() {
               <p className="text-sm font-medium text-white">
                 Admin User
               </p>
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-white/80">
                 Super Administrator
               </p>
             </div>
@@ -136,9 +150,10 @@ export function AppSidebar() {
         <Button
           variant="ghost"
           size="sm"
+          onClick={handleLogout}
           className={`${
             collapsed ? "w-8 h-8 p-0" : "w-full"
-          } text-white/70 hover:text-white hover:bg-white/20 transition-smooth`}
+          } text-white hover:text-white hover:bg-white/20 transition-smooth`}
         >
           <LogOut className="h-4 w-4" />
           {!collapsed && <span className="ml-2">Logout</span>}
